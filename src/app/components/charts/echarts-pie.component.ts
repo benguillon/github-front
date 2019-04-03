@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { elementEnd } from '@angular/core/src/render3';
 
 @Component({
   selector: 'ngx-echarts-pie',
@@ -11,6 +12,8 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   @Input()
   organization: any;
 
+  languages: [];
+
   options: any = {};
   themeSubscription: any;
 
@@ -18,6 +21,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const colors = config.variables;
@@ -33,23 +37,22 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: ['USA', 'Germany', 'France', 'Canada', 'Russia'],
+          data: ['Java', 'Javascript', 'Python', 'PHP'],
           textStyle: {
             color: echarts.textColor,
           },
         },
         series: [
           {
-            name: 'Countries',
+            name: 'Langages',
             type: 'pie',
             radius: '80%',
             center: ['50%', '50%'],
             data: [
-              { value: 335, name: 'Germany' },
-              { value: 765, name: 'France' },
-              { value: 234, name: 'Canada' },
-              { value: 135, name: 'Russia' },
-              { value: 1548, name: 'USA' },
+              { value: 34, name: 'Java' },
+              { value: 16, name: 'Javascript' },
+              { value: 9, name: 'Python' },
+              { value: 7, name: 'PHP' },
             ],
             itemStyle: {
               emphasis: {
@@ -81,4 +84,12 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
   }
+  
+  getNbReposPerLanguages(organization: any){
+    this.organization.data.forEach(orgaElement => {
+      this.languages.forEach(langElement => {
+      });
+    });
+  }
+
 }

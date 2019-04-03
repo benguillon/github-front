@@ -5,15 +5,26 @@
     <!-- Search form -->
     <form class="form-inline waves-light" mdbWavesEffect>
       <div class="md-form mt-0">
-        <input #search (keyup.enter)="onEnter(search.value)"class="form-control mr-sm-2" type="text" placeholder="Rechercher...">
+        <input #search (keyup.enter)="onEnter(search.value)" class="form-control mr-sm-2" type="text" placeholder="Rechercher...">
       </div>
     </form>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col-lg-6">
     <nb-card *ngIf="this.organization != null">
-      <nb-card-header>Langages les plus utilisés (en nombre de projets)</nb-card-header>
+      <nb-card-header>Langages les plus utilisés (nombre de projets)</nb-card-header>
       <nb-card-body>
         <ngx-echarts-pie [organization]="organization"></ngx-echarts-pie>
       </nb-card-body>
     </nb-card>
   </div>
+  <div class="col-lg-6"></div>
+  <nb-card *ngIf="this.organization != null">
+    <nb-card-header>Top contributeurs</nb-card-header>
+    <nb-card-body>
+      <ngx-d3-advanced-pie></ngx-d3-advanced-pie>
+    </nb-card-body>
+  </nb-card>
 </div>

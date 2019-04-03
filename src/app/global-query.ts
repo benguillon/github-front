@@ -6,6 +6,19 @@
 
 import gql from 'graphql-tag';
 
+export const getReposNames = gql`
+query Organization($login:String){
+  Organization(login: $login)
+  {
+    repos{
+      name
+      languages{
+        name
+      }
+    }
+  }
+}`;
+
 export const addUser = gql`
   mutation addUser($name: String!) {
     addUser(name: $name) {
@@ -14,7 +27,7 @@ export const addUser = gql`
     }
   }`;
 
-export const Users = gql`
+export const getUsers = gql`
   query {
     users{
       id

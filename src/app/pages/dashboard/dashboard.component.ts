@@ -1,9 +1,7 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs/Observable';
-import * as Query from '../../global-query';
+import * as organisationService from '../../global-query';
 import 'rxjs/add/operator/map';
-import { SearchInputComponent } from '../../@theme/components';
 
 
 @Component({
@@ -19,19 +17,19 @@ export class DashboardComponent {
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
-    // this.getUsers();
   }
 
-  getUsers() {
-    this.apollo.watchQuery({ query: Query.Users })
+  getReposNames(organization: String) {
+    this.apollo.watchQuery({ query: organisationService.getReposNames, variables: {login: organization} })
       .valueChanges
-      .map((result: any) => result.data.users).subscribe((data) => {
-        this.users = data;
+      .map((result: any) => result.data.organizations).subscribe((data) => {
+        this.organization = data;
+        console.log(this.organization);
       })
   }
 
-  onEnter(organization: string) { 
-    this.organization = organization; 
+  onEnter(organization: String) { 
+    this.getReposNames(organization);
   }
 
 }
