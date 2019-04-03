@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 
 @Component({
@@ -8,6 +8,9 @@ import { NbThemeService } from '@nebular/theme';
   `,
 })
 export class EchartsPieComponent implements AfterViewInit, OnDestroy {
+  @Input()
+  organization: any;
+
   options: any = {};
   themeSubscription: any;
 
