@@ -6,7 +6,7 @@
 
 import gql from 'graphql-tag';
 
-export const getReposNames = gql`
+export const getReposLanguages = gql`
 query Organization($login:String){
   Organization(login: $login)
   {

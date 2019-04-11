@@ -13,23 +13,30 @@ export class DashboardComponent {
 
   users: Array<any> = []; // List of Users
   organization: any;
+  name: any;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
   }
 
-  getReposNames(organization: String) {
-    this.apollo.watchQuery({ query: organisationService.getReposNames, variables: {login: organization} })
+  getReposLanguages(organization: String) {
+    this.organization = null;
+    this.apollo.watchQuery({ query: organisationService.getReposLanguages, variables: {login: organization} })
       .valueChanges
-      .map((result: any) => result.data.organizations).subscribe((data) => {
+      .map((result: any) => result.data.Organization).subscribe((data) => {
         this.organization = data;
         console.log(this.organization);
-      })
+      },
+      error => {
+        alert(error);
+      }
+      )
   }
 
   onEnter(organization: String) { 
-    this.getReposNames(organization);
+    this.name = organization.charAt(0).toUpperCase() + organization.slice(1);
+    this.getReposLanguages(organization);
   }
 
 }

@@ -11,8 +11,12 @@ import { elementEnd } from '@angular/core/src/render3';
 export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   @Input()
   organization: any;
+  // Compteur des langages
+  listLanguages: any;
+  languages: any;
+  // Objet crée pour le graph
+  finalLanguages: any;
 
-  languages: [];
 
   options: any = {};
   themeSubscription: any;
@@ -21,6 +25,21 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.languages = this.getNbReposPerLanguages();
+    this.finalLanguages = [];
+    this.listLanguages = [];
+    console.log(this.languages);
+    for (var language in this.languages){
+      if (this.languages.hasOwnProperty(language)) {
+           console.log("Key is " + language + ", value is" + this.languages[language]);
+           this.finalLanguages.push({value: this.languages[language], name: language})
+           this.listLanguages.push(language);
+      }
+  }
+  console.log(this.finalLanguages);
+
+    // this.finalLanguages.push({value: })
+
 
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
@@ -37,7 +56,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: ['Java', 'Javascript', 'Python', 'PHP'],
+          data: this.listLanguages,
           textStyle: {
             color: echarts.textColor,
           },
@@ -48,12 +67,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
             type: 'pie',
             radius: '80%',
             center: ['50%', '50%'],
-            data: [
-              { value: 34, name: 'Java' },
-              { value: 16, name: 'Javascript' },
-              { value: 9, name: 'Python' },
-              { value: 7, name: 'PHP' },
-            ],
+            data: this.finalLanguages,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -85,11 +99,18 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
     this.themeSubscription.unsubscribe();
   }
   
-  getNbReposPerLanguages(organization: any){
-    this.organization.data.forEach(orgaElement => {
-      this.languages.forEach(langElement => {
+  getNbReposPerLanguages(){
+    var languages = {};
+    this.organization.repos.forEach(function(repo) {
+      repo.languages.forEach(function(language) {
+        console.log("Languages name : " + language.name);
+        if (languages.hasOwnProperty(language.name)) {
+          languages[language.name]++;
+        } else {
+          languages[language.name] = 1;
+        }
       });
     });
+    return languages;
   }
-
 }
