@@ -10,12 +10,24 @@ export const getReposLanguages = gql`
 query Organization($login:String){
   Organization(login: $login)
   {
-    repos{
-      name
-      languages{
+    name
+    members {
+      login
+      repos {
         name
+        languages {
+          name
+        }
+        stars
       }
     }
+  repos{
+    name
+    stars
+    languages {
+      name
+    }
+  }
   }
 }`;
 
