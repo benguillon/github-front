@@ -13,6 +13,9 @@ export class TopStars implements OnDestroy {
   @Input()
   organization: any;
 
+  members: any;
+  reposMembers: any;
+
   private alive = true;
 
   contacts: any[];
@@ -21,8 +24,8 @@ export class TopStars implements OnDestroy {
   breakpoints: any;
 
   constructor(
-              private themeService: NbThemeService,
-              private breakpointService: NbMediaBreakpointsService) {
+    private themeService: NbThemeService,
+    private breakpointService: NbMediaBreakpointsService) {
     this.breakpoints = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(takeWhile(() => this.alive))
@@ -33,11 +36,30 @@ export class TopStars implements OnDestroy {
 
   }
 
+  ngOnInit(){
+    this.members = this.organization.members;
+    this.getAllReposFromMembers();
+    this.organization.repos.sort(this.sortNumber);
+    this.reposMembers.sort(this.sortNumber);
+  }
+
   ngOnDestroy() {
     this.alive = false;
   }
 
-  sortReposStars(){
-    
+  getAllReposFromMembers() {
+    this.reposMembers = [];
+    this.members.forEach(member => {
+      member.repos.forEach(repo => {
+        repo.memberName = member.login;
+        this.reposMembers.push(repo);
+      });
+    });
   }
+
+  sortNumber(a, b) {
+    return b.stars - a.stars;
+  }
+
+
 }

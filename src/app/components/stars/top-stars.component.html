@@ -6,11 +6,11 @@
         <i class="i-contact nb-phone"></i>
       </div>
     </nb-tab>
-    <!-- <nb-tab tabTitle="Members">
-      <div class="contact" *ngFor="let repo of this.organization.members">
-        <nb-user [name]="repo.name" [title]="organization.name + ' ' + repo.stars + 'stars'" size="large"></nb-user>
+    <nb-tab tabTitle="Members">
+      <div class="contact" *ngFor="let repo of this.reposMembers">
+        <nb-user [name]="repo.name" [title]="repo.memberName + ' ' + repo.stars + ' stars'" size="large"></nb-user>
         <i class="i-contact nb-phone"></i>
       </div>
-    </nb-tab> -->
+    </nb-tab>
   </nb-tabset>
 </nb-card>
