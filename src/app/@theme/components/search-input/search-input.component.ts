@@ -31,6 +31,5 @@ export class SearchInputComponent {
 
   onInput(val: string) {
     this.search.emit(val);
-    console.log(val);
   }
 }

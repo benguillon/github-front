@@ -29,10 +29,10 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
     this.finalLanguages = [];
     this.listLanguages = [];
     console.log(this.languages);
-    for (var language in this.languages){
+    for (const language in this.languages){
       if (this.languages.hasOwnProperty(language)) {
-           console.log("Key is " + language + ", value is" + this.languages[language]);
-           this.finalLanguages.push({value: this.languages[language], name: language})
+           console.log('Key is ' + language + ', value is' + this.languages[language]);
+           this.finalLanguages.push({value: this.languages[language], name: language});
            this.listLanguages.push(language);
       }
   }
@@ -98,12 +98,12 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
   }
-  
+
   getNbReposPerLanguages(){
-    var languages = {};
+    const languages = {};
     this.organization.repos.forEach(function(repo) {
       repo.languages.forEach(function(language) {
-        console.log("Languages name : " + language.name);
+        console.log('Languages name : ' + language.name);
         if (languages.hasOwnProperty(language.name)) {
           languages[language.name]++;
         } else {

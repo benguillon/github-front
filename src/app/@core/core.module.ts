@@ -1,30 +1,15 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import {NbAuthModule, NbOAuth2AuthStrategy, NbOAuth2ResponseType} from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
-
-const socialLinks = [
-  {
-    url: 'https://github.com/akveo/nebular',
-    target: '_blank',
-    icon: 'socicon-github',
-  },
-  {
-    url: 'https://www.facebook.com/akveo/',
-    target: '_blank',
-    icon: 'socicon-facebook',
-  },
-  {
-    url: 'https://twitter.com/akveo_inc',
-    target: '_blank',
-    icon: 'socicon-twitter',
-  },
-];
+import {OAuth2LoginComponent} from './auth/oauth2-login.component';
+import {OAuth2CallbackComponent} from './auth/oauth2-callback.component';
+import {NbLayoutModule} from '@nebular/theme';
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
   getRole() {
@@ -38,19 +23,18 @@ export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
 
     strategies: [
-      NbDummyAuthStrategy.setup({
-        name: 'email',
-        delay: 3000,
+      NbOAuth2AuthStrategy.setup({
+        name: 'auth0',
+        clientId: 'prBJrBJQp4tyEUseCpiBWMqs3hO-e8r5',
+        clientSecret: 'R1yTpATU6_xEXaxhpQg4YsRWgSCBjJSQcU-z-7gnU1ReJiG8iihKcedNAiwKtebC',
+        authorize: {
+          endpoint: 'https://github-insights.eu.auth0.com/authorize',
+          responseType: NbOAuth2ResponseType.TOKEN,
+          scope: 'openid profile',
+          redirectUri: 'http://localhost:4200/callback',
+        },
       }),
     ],
-    forms: {
-      login: {
-        socialLinks: socialLinks,
-      },
-      register: {
-        socialLinks: socialLinks,
-      },
-    },
   }).providers,
 
   NbSecurityModule.forRoot({
@@ -76,11 +60,15 @@ export const NB_CORE_PROVIDERS = [
 @NgModule({
   imports: [
     CommonModule,
+    NbLayoutModule,
   ],
   exports: [
     NbAuthModule,
   ],
-  declarations: [],
+  declarations: [
+  OAuth2LoginComponent,
+  OAuth2CallbackComponent,
+  ],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

@@ -16,7 +16,7 @@ import { TopStars } from '../../components/stars/top-stars.component';
     ThemeModule,
     NgxEchartsModule,
     NgxChartsModule,
-    ChartModule
+    ChartModule,
   ],
   declarations: [
     DashboardComponent, EchartsPieComponent, D3AdvancedPieComponent, TopStars],
