@@ -29,8 +29,8 @@
     <nb-card *ngIf="this.organization != null">
       <nb-card-header>Derniers projets</nb-card-header>
       <nb-list>
-        <nb-list-item *ngFor="let repo of this.organization.repos">
-          <nb-user [name]="repo.name" [title]="repo.stars">
+        <nb-list-item *ngFor="let repo of this.latestRepos">
+          <nb-user [name]="repo.name" [title]="repo.created_at">
           </nb-user>
         </nb-list-item>
       </nb-list>

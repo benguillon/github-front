@@ -18,6 +18,8 @@ export class DashboardComponent {
 
   summary: any;
 
+  latestRepos: any;
+
   constructor(private apollo: Apollo) {
   }
 
@@ -28,6 +30,7 @@ export class DashboardComponent {
       .map((result: any) => result.data.Organization).subscribe((data) => {
         this.organization = data;
         this.getStats();
+        this.getLatestRepos();
         this.loading = false;
       },
       error => {
@@ -67,6 +70,25 @@ export class DashboardComponent {
     this.summary.push({title: "Repositories", value: nbRepos});
     this.summary.push({title: "Membres", value: nbMembers});
     this.summary.push({title: "Langages", value: nbLangages});
+  }
+
+  getLatestRepos(){
+    var latestRepos = this.organization.repos;
+    var index = 0;
+    this.organization.repos.forEach(function(repo) {
+      console.log(repo.created_at);
+      latestRepos[index]=repo;
+      index++;
+    });
+    latestRepos.reverse();
+    this.latestRepos = [];
+    for (var i = 0; i < 5; i++ ) {
+      this.latestRepos.push(latestRepos[i]);  
+    }
+  }
+
+  sortDate(a, b) {
+    return +new Date(b.created_at) - +new Date(a.created_at);
   }
 
 }
