@@ -16,6 +16,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
   languages: any;
   // Objet crée pour le graph
   finalLanguages: any;
+  finalFinalLanguages: any;
 
 
   options: any = {};
@@ -28,15 +29,23 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
     this.languages = this.getNbReposPerLanguages();
     this.finalLanguages = [];
     this.listLanguages = [];
-    console.log(this.languages);
     for (const language in this.languages){
       if (this.languages.hasOwnProperty(language)) {
            console.log('Key is ' + language + ', value is' + this.languages[language]);
            this.finalLanguages.push({value: this.languages[language], name: language});
-           this.listLanguages.push(language);
       }
   }
+  this.finalLanguages.sort(this.sortNumber);
+  this.finalFinalLanguages = [];
+  for (var i = 0; i < 10; i++ ) {
+    this.finalFinalLanguages.push(this.finalLanguages[i]);
+    this.listLanguages.push(this.finalFinalLanguages[i].name);
+
+  }
   console.log(this.finalLanguages);
+  console.log(this.finalFinalLanguages);
+
+
 
     // this.finalLanguages.push({value: })
 
@@ -67,7 +76,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
             type: 'pie',
             radius: '80%',
             center: ['50%', '50%'],
-            data: this.finalLanguages,
+            data: this.finalFinalLanguages,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -112,5 +121,9 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
       });
     });
     return languages;
+  }
+
+  sortNumber(a, b) {
+    return b.value - a.value;
   }
 }

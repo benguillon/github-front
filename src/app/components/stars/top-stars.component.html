@@ -2,7 +2,7 @@
   <nb-tabset fullWidth>
     <nb-tab tabTitle="Organization">
       <div class="contact" *ngFor="let repo of this.organization.repos">
-        <nb-user [name]="repo.name" [title]="organization.name + '-' + repo.stars + ' stars'" size="large"></nb-user>
+        <nb-user [name]="repo.name" [title]="organization.name + ' - ' + repo.stars + ' stars'" size="large"></nb-user>
         <i class="i-contact nb-phone"></i>
       </div>
     </nb-tab>

@@ -11,6 +11,8 @@ query Organization($login:String){
   Organization(login: $login)
   {
     name
+    login
+    avatar_url
     members {
       login
       repos {
@@ -24,6 +26,7 @@ query Organization($login:String){
   repos{
     name
     stars
+    created_at
     languages {
       name
     }
