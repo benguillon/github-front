@@ -11,20 +11,19 @@
 </div>
 
 <h1 *ngIf="this.loading != false">Chargement...</h1>
-<h1 *ngIf="this.organization != null">{{this.organization.name}}</h1>
-<div class="row">
-  <div class="row col-lg-10">
-    <div class="col-md-2">
+
+<div>
+  <h1 *ngIf="this.organization != null">{{this.organization.name}}</h1>
+  <div class="row">
+    <div id="over" class="col-lg-2">
       <img *ngIf="this.organization != null" [src]="this.organization.avatar_url" />
     </div>
-    <nb-card *ngIf="this.organization != null">
-      <nb-card-header>Statistiques globales de {{this.organization.name}}</nb-card-header>
-      <nb-card-body>
-        <p> {{this.nbRepos}} repositories</p>
-        <p> {{this.nbMembers}} membres</p>
-        <p> {{this.nbLangages}} langages utilisés</p>
-      </nb-card-body>
-    </nb-card>
+    <div class="col-lg-8">
+      <nb-card *ngIf="this.organization != null">
+        <nb-card-header>À propos de {{this.organization.name}}</nb-card-header>
+        <ngx-chart-panel-summary [summary]="this.summary"></ngx-chart-panel-summary>
+      </nb-card>
+    </div>
   </div>
   <div class="col-lg-10">
     <nb-card *ngIf="this.organization != null">
@@ -47,18 +46,18 @@
   </div>
   <div class="col-lg-10">
     <nb-card *ngIf="this.organization != null">
-      <nb-card-header>Top contributeurs</nb-card-header>
-      <nb-card-body>
-        <ngx-d3-advanced-pie></ngx-d3-advanced-pie>
-      </nb-card-body>
-    </nb-card>
-  </div>
-  <div class="col-lg-10">
-    <nb-card *ngIf="this.organization != null">
-      <nb-card-header>Top Repositories</nb-card-header>
+      <nb-card-header>Top Repositories (stars)</nb-card-header>
       <nb-card-body>
         <ngx-stars [organization]="organization"></ngx-stars>
       </nb-card-body>
     </nb-card>
   </div>
+  <div class="col-lg-10">
+      <nb-card *ngIf="this.organization != null">
+        <nb-card-header>Top contributeurs</nb-card-header>
+        <nb-card-body>
+          <ngx-d3-advanced-pie></ngx-d3-advanced-pie>
+        </nb-card-body>
+      </nb-card>
+    </div>
 </div>

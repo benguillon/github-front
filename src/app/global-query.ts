@@ -13,6 +13,7 @@ query Organization($login:String){
     name
     login
     avatar_url
+    description
     members {
       login
       repos {

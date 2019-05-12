@@ -2,14 +2,14 @@
   <nb-tabset fullWidth>
     <nb-tab tabTitle="Organization">
       <div class="contact" *ngFor="let repo of this.organization.repos">
-        <nb-user [name]="repo.name" [title]="organization.name + ' - ' + repo.stars + ' stars'" size="large"></nb-user>
-        <i class="i-contact nb-phone"></i>
+        <nb-user [name]="repo.name" [title]="organization.name" size="large"></nb-user>
+        <i class="i-contact nb-star">{{repo.stars}}</i>
       </div>
     </nb-tab>
     <nb-tab tabTitle="Members">
       <div class="contact" *ngFor="let repo of this.reposMembers">
-        <nb-user [name]="repo.name" [title]="repo.memberName + ' ' + repo.stars + ' stars'" size="large"></nb-user>
-        <i class="i-contact nb-phone"></i>
+        <nb-user [name]="repo.name" [title]="repo.memberName" size="large"></nb-user>
+        <i class="i-contact nb-star">{{repo.stars}}</i>
       </div>
     </nb-tab>
   </nb-tabset>

@@ -16,9 +16,7 @@ export class DashboardComponent {
 
   loading = false;
 
-  nbRepos: Number;
-  nbLangages: Number;
-  nbMembers: Number;
+  summary: any;
 
   constructor(private apollo: Apollo) {
   }
@@ -65,9 +63,10 @@ export class DashboardComponent {
     for(var member in this.organization.members){
       nbMembers++;
     }
-    this.nbMembers = nbMembers;
-    this.nbRepos = nbRepos;
-    this.nbLangages = nbLangages;
+    this.summary = [];
+    this.summary.push({title: "Repositories", value: nbRepos});
+    this.summary.push({title: "Membres", value: nbMembers});
+    this.summary.push({title: "Langages", value: nbLangages});
   }
 
 }

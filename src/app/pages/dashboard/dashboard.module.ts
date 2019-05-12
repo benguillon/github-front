@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard.component';
 import { EchartsPieComponent } from '../../components/charts/echarts-pie.component';
 import { D3AdvancedPieComponent } from '../../components/charts/d3-advanced-pie.component';
 import { TopStars } from '../../components/stars/top-stars.component';
+import { ChartPanelSummaryComponent } from '../../components/summary/chart-panel-summary.component';
 
 
 
@@ -19,6 +20,6 @@ import { TopStars } from '../../components/stars/top-stars.component';
     ChartModule,
   ],
   declarations: [
-    DashboardComponent, EchartsPieComponent, D3AdvancedPieComponent, TopStars],
+    DashboardComponent, EchartsPieComponent, D3AdvancedPieComponent, TopStars, ChartPanelSummaryComponent],
 })
 export class DashboardModule { }
